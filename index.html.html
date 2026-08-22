@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автосервис "АвтоМастер" — Премиум Ледник</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0f1a;
+            --bg-mid: #111a2e;
+            --bg-light: #1a2a40;
+            --ice-blue: #7ec8ff;
+            --ice-blue-dark: #3a7ca5;
+            --silver: #c0c8d4;
+            --glass-bg: rgba(20, 30, 50, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glow: 0 0 20px rgba(100, 180, 255, 0.3);
+        }
+
+        body {
+            background: linear-gradient(145deg, var(--bg-dark) 0%, var(--bg-mid) 40%, var(--bg-light) 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e6ed;
+            scroll-behavior: smooth;
+            min-height: 100vh;
+        }
+
+        /* Навигация */
+        .navbar {
+            background: rgba(10, 15, 26, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--silver) !important;
+            text-shadow: 0 0 10px rgba(126, 200, 255, 0.3);
+        }
+        .navbar-brand i {
+            color: var(--ice-blue);
+        }
+        .nav-link {
+            color: #b0b8c5 !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover {
+            color: #ffffff !important;
+            text-shadow: 0 0 12px rgba(126, 200, 255, 0.6);
+        }
+
+        /* Hero-секция */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600') center/cover no-repeat;
+            color: white;
+            padding: 130px 0;
+            position: relative;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(10,15,26,0.85) 0%, rgba(10,15,26,0.6) 100%);
+            z-index: 1;
+        }
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #f0f6ff;
+            text-shadow: 0 0 30px rgba(126,200,255,0.5);
+        }
+        .hero .lead {
+            color: #d0dae6;
+            letter-spacing: 1px;
+        }
+        .hero .btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(126,200,255,0.3);
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .hero .btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.9);
+            box-shadow: 0 0 40px rgba(126,200,255,0.6);
+        }
+
+        /* Заголовки секций */
+        h2 {
+            color: #e0e6ed;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(126,200,255,0.4);
+        }
+        h2 i {
+            color: var(--ice-blue);
+            margin-right: 10px;
+        }
+
+        /* Карточки услуг – эффект тёмного стекла */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255,255,255,0.02);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            color: #e0e6ed;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(126,200,255,0.15);
+            border-color: rgba(126,200,255,0.4);
+        }
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--ice-blue);
+            text-shadow: 0 0 20px rgba(126,200,255,0.5);
+        }
+
+        /* О нас */
+        #about {
+            background: rgba(10, 15, 26, 0.6);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        #about ul li {
+            color: #c0c8d4;
+        }
+        #about .fa-check-circle {
+            color: var(--ice-blue);
+            margin-right: 8px;
+        }
+
+        /* Контакты */
+        .contact-section {
+            background: rgba(15, 22, 38, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .contact-section h5 {
+            color: var(--ice-blue);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .contact-section p, .contact-section a {
+            color: #c0c8d4;
+        }
+        .form-control {
+            background: rgba(20, 30, 50, 0.8);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #ffffff;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            background: rgba(30, 45, 70, 0.9);
+            border-color: var(--ice-blue);
+            box-shadow: 0 0 15px rgba(126,200,255,0.3);
+            color: white;
+        }
+        .btn-warning {
+            background: transparent;
+            border: 1px solid var(--ice-blue);
+            color: var(--ice-blue);
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            padding: 10px 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-warning:hover {
+            background: rgba(126,200,255,0.1);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(126,200,255,0.4);
+        }
+
+        /* Футер */
+        footer {
+            background: #070b12;
+            color: #8899aa;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Анимация для уведомления */
+        .alert-success {
+            background: rgba(46, 125, 50, 0.9) !important;
+            border: 1px solid #66bb6a !important;
+            color: #ffffff !important;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-snowflake"></i> АвтоМастер</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#services">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <header class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold"><i class="fas fa-icicles"></i> Премиум Автосервис</h1>
+            <p class="lead">Точность, надёжность и холодный расчёт в каждом ремонте</p>
+            <a href="#contact" class="btn btn-lg mt-4">Записаться</a>
+        </div>
+    </header>
+
+    <!-- Услуги -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center"><i class="fas fa-snowflake"></i> Наши услуги</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-microchip"></i></div>
+                        <h5>Диагностика</h5>
+                        <p>Компьютерная диагностика двигателя и электронных систем.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                        <h5>Ремонт двигателя</h5>
+                        <p>Капитальный и текущий ремонт любых типов двигателей.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-car-side"></i></div>
+                        <h5>Шиномонтаж</h5>
+                        <p>Сезонная замена шин, балансировка, ремонт проколов.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-wrench"></i></div>
+                        <h5>Подвеска</h5>
+                        <p>Замена амортизаторов, шаровых, сайлентблоков и др.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                        <h5>Электрика</h5>
+                        <p>Ремонт проводки, установка дополнительного оборудования.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="service-icon"><i class="fas fa-paint-roller"></i></div>
+                        <h5>Кузовной ремонт</h5>
+                        <p>Устранение вмятин, покраска, полировка.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2><i class="fas fa-icicles"></i> Почему выбирают нас?</h2>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="fas fa-check-circle"></i> Опыт работы более 15 лет</li>
+                        <li class="mb-3"><i class="fas fa-check-circle"></i> Современное оборудование</li>
+                        <li class="mb-3"><i class="fas fa-check-circle"></i> Гарантия на все виды работ</li>
+                        <li class="mb-3"><i class="fas fa-check-circle"></i> Честные цены без скрытых доплат</li>
+                        <li class="mb-3"><i class="fas fa-check-circle"></i> Бесплатная консультация</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600" alt="Автосервис" class="img-fluid rounded shadow" style="border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 40px rgba(0,0,0,0.6);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <!-- Контакты и форма -->
+    <section id="contact" class="py-5 contact-section">
+        <div class="container">
+            <h2 class="text-center"><i class="fas fa-snowflake"></i> Свяжитесь с нами</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-map-marker-alt"></i> Наш адрес</h5>
+                    <p>г. Москва, ул. Автомобильная, д. 10</p>
+                    <h5><i class="fas fa-phone"></i> Телефон</h5>
+                    <p><a href="tel:+79991234567" class="text-decoration-none">+7 (999) 123-45-67</a></p>
+                    <h5><i class="fas fa-envelope"></i> Email</h5>
+                    <p><a href="mailto:info@automaser.ru" class="text-decoration-none">info@automaser.ru</a></p>
+                    <h5><i class="fas fa-clock"></i> Режим работы</h5>
+                    <p>Пн-Сб: 9:00 – 20:00, Вс: выходной</p>
+                </div>
+                <div class="col-md-6">
+                    <form action="https://formspree.io/f/moeabpjk" method="POST" id="requestForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Ваше имя</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Что нужно сделать?</label>
+                            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Отправить заявку</button>
+                    </form>
+                    <div id="formSuccess" class="alert alert-success mt-3 d-none" role="alert">
+                        ✅ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами!
+                    </div>
+                    <div id="formError" class="alert alert-danger mt-3 d-none" role="alert">
+                        ❌ Ошибка! Попробуйте позже или позвоните по телефону.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="text-center py-3">
+        <p class="mb-0"><i class="fas fa-snowflake"></i> © 2025 АвтоМастер. Все права защищены.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('requestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const successDiv = document.getElementById('formSuccess');
+            const errorDiv = document.getElementById('formError');
+            
+            successDiv.classList.add('d-none');
+            errorDiv.classList.add('d-none');
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    successDiv.classList.remove('d-none');
+                    form.reset();
+                } else {
+                    errorDiv.classList.remove('d-none');
+                }
+            })
+            .catch(() => {
+                errorDiv.classList.remove('d-none');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                setTimeout(() => {
+                    successDiv.classList.add('d-none');
+                    errorDiv.classList.add('d-none');
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
